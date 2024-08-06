@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  league: one
+  user: one
+  best_player: MyString
+  best_young_player: MyString
+  golden_gloves: MyString
+  top_scorer: MyString
+  most_assists: MyString
+
+two:
+  league: two
+  user: two
+  best_player: MyString
+  best_young_player: MyString
+  golden_gloves: MyString
+  top_scorer: MyString
+  most_assists: MyString

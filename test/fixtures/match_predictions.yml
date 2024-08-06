@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mini_league: one
+  match: one
+  user: one
+  league: one
+  away_team_goals: 1
+  home_team_goals: 1
+  is_locked: false
+  points_earned: 1
+
+two:
+  mini_league: two
+  match: two
+  user: two
+  league: two
+  away_team_goals: 1
+  home_team_goals: 1
+  is_locked: false
+  points_earned: 1

@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  season_name: MyString
+  external_season_id: 1
+  best_player: MyString
+  top_scorer: MyString
+  golden_gloves: MyString
+  young_best_player: MyString
+  most_assists: MyString
+  start_date: 2024-08-05
+  end_date: 2024-08-05
+
+two:
+  season_name: MyString
+  external_season_id: 1
+  best_player: MyString
+  top_scorer: MyString
+  golden_gloves: MyString
+  young_best_player: MyString
+  most_assists: MyString
+  start_date: 2024-08-05
+  end_date: 2024-08-05

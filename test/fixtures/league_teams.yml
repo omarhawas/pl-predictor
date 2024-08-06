@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  league: one
+  name: MyString
+  current_rank: 1
+  external_id: 1
+  goals_scored: 1
+  goals_conceded: 1
+
+two:
+  league: two
+  name: MyString
+  current_rank: 1
+  external_id: 1
+  goals_scored: 1
+  goals_conceded: 1

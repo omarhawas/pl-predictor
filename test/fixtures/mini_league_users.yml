@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mini_league: one
+  mini_league_type: Mini league
+  user: one
+  is_admin: false
+  points_earned: 1
+
+two:
+  mini_league: two
+  mini_league_type: Mini league
+  user: two
+  is_admin: false
+  points_earned: 1

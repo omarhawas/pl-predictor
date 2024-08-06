@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  mini_league: one
+  mini_league_type: Mini league
+  invited_by_user_id: 1
+  accepted_at: 2024-08-05 14:05:44
+
+two:
+  user: two
+  mini_league: two
+  mini_league_type: Mini league
+  invited_by_user_id: 1
+  accepted_at: 2024-08-05 14:05:44

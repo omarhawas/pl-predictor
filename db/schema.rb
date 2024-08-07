@@ -55,7 +55,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_05_180606) do
   end
 
   create_table "match_predictions", force: :cascade do |t|
-    t.bigint "mini_league_id", null: false
     t.bigint "match_id", null: false
     t.bigint "user_id", null: false
     t.bigint "league_id", null: false
@@ -67,7 +66,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_05_180606) do
     t.datetime "updated_at", null: false
     t.index ["league_id"], name: "index_match_predictions_on_league_id"
     t.index ["match_id"], name: "index_match_predictions_on_match_id"
-    t.index ["mini_league_id"], name: "index_match_predictions_on_mini_league_id"
     t.index ["user_id"], name: "index_match_predictions_on_user_id"
   end
 
@@ -87,25 +85,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_05_180606) do
 
   create_table "mini_league_user_invites", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "mini_league_type", null: false
     t.bigint "mini_league_id", null: false
     t.integer "invited_by_user_id"
     t.datetime "accepted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["mini_league_type", "mini_league_id"], name: "index_mini_league_user_invites_on_mini_league"
+    t.index ["mini_league_id"], name: "index_mini_league_user_invites_on_mini_league_id"
     t.index ["user_id"], name: "index_mini_league_user_invites_on_user_id"
   end
 
   create_table "mini_league_users", force: :cascade do |t|
-    t.string "mini_league_type", null: false
     t.bigint "mini_league_id", null: false
     t.bigint "user_id", null: false
     t.boolean "is_admin"
     t.integer "points_earned"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["mini_league_type", "mini_league_id"], name: "index_mini_league_users_on_mini_league"
+    t.index ["mini_league_id"], name: "index_mini_league_users_on_mini_league_id"
     t.index ["user_id"], name: "index_mini_league_users_on_user_id"
   end
 
@@ -130,7 +126,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_05_180606) do
   add_foreign_key "league_teams", "leagues"
   add_foreign_key "match_predictions", "leagues"
   add_foreign_key "match_predictions", "matches"
-  add_foreign_key "match_predictions", "mini_leagues"
   add_foreign_key "match_predictions", "users"
   add_foreign_key "matches", "leagues"
   add_foreign_key "mini_league_user_invites", "users"

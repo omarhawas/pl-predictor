@@ -1,7 +1,6 @@
 class MatchesController < ApplicationController
 
     def create
-
         league = League.find(params[:league_id])
         match = Match.new(match_params)
 
@@ -20,6 +19,4 @@ class MatchesController < ApplicationController
     def match_params
         params.require(:match).permit(:home_team_goals, :away_team_goals, :start_time, :end_time)
     end
-
-
 end

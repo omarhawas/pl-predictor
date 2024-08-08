@@ -1,13 +1,5 @@
 class MatchPredictionsController < ApplicationController
 
-    def index
-
-    end
-
-    def show
-
-    end
-
     def create
         match = Match.find(params[:match_id])
         league = match.league
@@ -23,12 +15,27 @@ class MatchPredictionsController < ApplicationController
         else 
             render json: {error: match_prediction.errors}, status: 400
         end
-
     end
 
-    def edit
+    def index
+        match_predictions = MatchPrediction.where(match_id: params[:match_id])
 
+        if match_predictions.exists?
+            render json: {match_predictions: match_predictions}, status: 200
+        else
+            render json: {'no match predictions found'}, status: 404
+        end
     end
+
+    def show
+        begin
+            match_prediction = MatchPrediction.find(params[:id])
+            render json: {match_prediction: match_prediction}, status: 200
+        rescue ActiveRecord::RecordNotFound
+            render json: {"match prediction not found"}, status: 404
+        end
+    end
+
 
     def update
 
@@ -41,7 +48,7 @@ class MatchPredictionsController < ApplicationController
     private
 
     def match_prediction_params
-        params.require(:away_team_goals, :home_team_goals)
+        params.require(:match_prediction).permit(:away_team_goals, :home_team_goals)
     end
 
 end

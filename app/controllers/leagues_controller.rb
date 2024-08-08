@@ -3,6 +3,8 @@ class LeaguesController < ApplicationController
     def create
         league = League.new(league_params)
 
+        # external_season_id = league.
+
         if league.save
             render json: {league: league}, status: 200
         else 

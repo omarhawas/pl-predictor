@@ -21,19 +21,10 @@ class LeaguesController < ApplicationController
     end
 
     def sync_leagues
-        football_org_token = Rails.application.credentials.dig(:football_data_api)
+        
+        current_season = FootballApi.get_current_season()
 
-        uri = URI.parse("http://api.football-data.org/v4/competitions/PL")
-        request = Net::HTTP::Get.new(uri)
-        request["X-Auth-Token"] = football_org_token
-
-        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
-            http.request(request)
-        end
-
-        if response.is_a?(Net::HTTPSuccess)
-            data = JSON.parse(response.body)
-            current_season = data["currentSeason"]
+        if current_season
             league = League.where(external_season_id: current_season["id"]).first
 
             if !league.present?
@@ -41,20 +32,11 @@ class LeaguesController < ApplicationController
             end
 
             
-            uri = URI.parse("http://api.football-data.org/v4/competitions/PL/teams?season=#{Time.current.year}")
-            request = Net::HTTP::Get.new(uri)
-            request["X-Auth-Token"] = football_org_token
-
-            response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
-                http.request(request)
-            end
-
             db_teams = []
 
-            if response.is_a?(Net::HTTPSuccess)
-                data = JSON.parse(response.body)
-                teams = data["teams"]
+            teams = FootballApi.get_current_season_teams()
 
+            if teams
                 teams.each do |team|
                     db_team = LeagueTeam.where(external_id: team["id"]).first
 

@@ -15,7 +15,6 @@ class LeaguePredictionsController < ApplicationController
         end
     end
 
-
     def index
         league_predictions = LeaguePrediction.where(league_id: params[:league_id])
 

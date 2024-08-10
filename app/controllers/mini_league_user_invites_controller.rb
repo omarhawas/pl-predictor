@@ -15,12 +15,6 @@ class MiniLeagueUserInvitesController < ApplicationController
         end
     end
 
-    
-
-
-
-
-
     private
 
     def mini_league_user_invite_params

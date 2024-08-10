@@ -38,11 +38,24 @@ class MatchPredictionsController < ApplicationController
 
 
     def update
+        match_prediction = MatchPrediction.find(params[:id])
+
+        if match_prediction.update(match_prediction_params)
+            render json: {match_prediction: match_prediction}, status: 200
+        else
+            render json: {errors: match_prediction.errors}, status: 400
+        end
 
     end
 
     def destroy
-
+        match_prediction = MatchPrediction.find(params[:id])
+        
+        if match_prediction.destroy
+            render json: {message: 'Successfully deleted match prediction'}, status: 200
+        else
+            render json: {error: 'Unable to delete match prediction'}, status: 400
+        end
     end
 
     private

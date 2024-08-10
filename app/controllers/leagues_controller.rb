@@ -19,4 +19,4 @@ class LeaguesController < ApplicationController
     def league_params
         params.require(:league).permit(:season_name, :start_date, :end_date)
     end
-end
+end 

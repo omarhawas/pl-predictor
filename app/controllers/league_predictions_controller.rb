@@ -36,11 +36,24 @@ class LeaguePredictionsController < ApplicationController
     end
 
     def update
-        
+        league_prediction = LeaguePrediction.find(params[:id])
+
+        if league_prediction.update(league_prediction_params)
+            render json: {league_prediction: league_prediction}, status: 200
+        else 
+            render json: {league_prediction: league_prediction}, status: 400
+        end
+
     end
 
     def destroy
+        league_prediction = LeaguePrediction.find(params[:id])
 
+        if league_prediction.destroy
+            render json: {message: 'Successfully deleted league prediction'}, status: 200
+        else
+            render json: {error: 'Unable to delete league prediction'}, status: 400
+        end
     end
 
     private

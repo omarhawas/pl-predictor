@@ -10,8 +10,11 @@ Rails.application.routes.draw do
 
     resources :users 
 
+    post '/sync_leagues', to: 'leagues#sync_leagues'
+
+
     resources :leagues do
-  
+
       resources :league_predictions
   
       resources :mini_leagues do

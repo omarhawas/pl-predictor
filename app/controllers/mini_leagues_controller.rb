@@ -5,6 +5,8 @@ class MiniLeaguesController < ApplicationController
         league = League.find(params[:league_id])
         mini_league = MiniLeague.new(mini_league_params)
 
+        # mini_league_admin_user_id = 
+
     end
 
     private

@@ -3,22 +3,28 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  scope 'api/v1' do
 
-  resources :users 
+    post '/login', to: 'users#login'
+    post '/signup', to: 'users#signup'
 
-  resources :leagues do
+    resources :users 
 
-    resources :league_predictions
-
-    resources :mini_leagues do
-      resources :mini_league_users
-      resources :mini_league_user_invites
-    end
-
-    resources :matches do
-      resources :match_predictions
+    resources :leagues do
+  
+      resources :league_predictions
+  
+      resources :mini_leagues do
+        resources :mini_league_users
+        resources :mini_league_user_invites
+      end
+  
+      resources :matches do
+        resources :match_predictions
+      end
+  
     end
 
   end
-  
+
 end

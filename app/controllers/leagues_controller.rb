@@ -40,7 +40,35 @@ class LeaguesController < ApplicationController
                 league = League.create(external_season_id: current_season["id"], season_name: Time.current.year.to_s, start_date: current_season["startDate"], end_date: current_season["endDate"])
             end
 
-           render status: 200, json: {league: league}
+            
+            uri = URI.parse("http://api.football-data.org/v4/competitions/PL/teams?season=#{Time.current.year}")
+            request = Net::HTTP::Get.new(uri)
+            request["X-Auth-Token"] = football_org_token
+
+            response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
+                http.request(request)
+            end
+
+            db_teams = []
+
+            if response.is_a?(Net::HTTPSuccess)
+                data = JSON.parse(response.body)
+                teams = data["teams"]
+
+                teams.each do |team|
+                    db_team = LeagueTeam.where(external_id: team["id"]).first
+
+                    if !db_team.present?
+                        db_team = LeagueTeam.create(league_id: league.id, name: team["name"], external_id: team["id"], crest: team["crest"])
+                    end
+
+                    db_teams.push(db_team)
+                end
+            else
+                render status: 400, json: {message: "Failed to sync teams"}
+            end
+
+           render status: 200, json: {league: league, teams: db_teams}
         else
             render status: 400, json: {message: "Unable to sync"}
         end

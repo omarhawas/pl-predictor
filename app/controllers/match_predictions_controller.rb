@@ -23,7 +23,7 @@ class MatchPredictionsController < ApplicationController
         if match_predictions.exists?
             render json: {match_predictions: match_predictions}, status: 200
         else
-            render json: {'no match predictions found'}, status: 404
+            render json: {message: 'no match predictions found'}, status: 404
         end
     end
 
@@ -32,7 +32,7 @@ class MatchPredictionsController < ApplicationController
             match_prediction = MatchPrediction.find(params[:id])
             render json: {match_prediction: match_prediction}, status: 200
         rescue ActiveRecord::RecordNotFound
-            render json: {"match prediction not found"}, status: 404
+            render json: {message: "match prediction not found"}, status: 404
         end
     end
 

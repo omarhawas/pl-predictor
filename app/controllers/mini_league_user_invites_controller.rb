@@ -16,7 +16,7 @@ class MiniLeagueUserInvitesController < ApplicationController
     end
 
     def update
-        mini_league = MiniLeague.find(params[:])
+        # mini_league = MiniLeague.find(params[:])
     end
 
     private

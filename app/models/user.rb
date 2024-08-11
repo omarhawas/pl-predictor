@@ -11,7 +11,7 @@ class User < ApplicationRecord
     validates :username, uniqueness: true
 
     def set_access_code
-        access_code = rand(1000..9999).to_s
+        self.access_code = rand(1000..9999).to_s
     end
 
 end

@@ -1,3 +1,6 @@
+require 'net/http'
+require 'net/https'
+
 class FootballApi
 
     def self.get_current_season
@@ -67,5 +70,26 @@ class FootballApi
 
     end
 
+    def self.get_match_results(match_id)
+
+        football_org_token = Rails.application.credentials.dig(:football_data_api)
+
+        uri = URI.parse("http://api.football-data.org/v4/matches/#{match_id}")
+        request = Net::HTTP::Get.new(uri)
+        request["X-Auth-Token"] = football_org_token
+
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
+            http.request(request)
+        end
+
+        if response.is_a?(Net::HTTPSuccess)
+            data = JSON.parse(response.body)
+            score = data["score"]["fullTime"]
+            return score
+        else
+            return nil
+        end
+
+    end
 
 end

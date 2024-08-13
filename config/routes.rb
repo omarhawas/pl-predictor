@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
     post '/sync_leagues', to: 'leagues#sync_leagues'
     post '/leagues/:league_id/sync_matches', to: 'matches#sync_matches'
+    post '/sync_results', to: 'matches#sync_results'
 
 
     resources :leagues do

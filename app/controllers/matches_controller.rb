@@ -55,6 +55,7 @@ class MatchesController < ApplicationController
             if match_result
               match.update(home_team_goals: match_result["home"], away_team_goals: match_result["away"])
               match.save!
+              match.calculate_points()
               match_results.push(match_result) 
             else
                 render status: 400, json: {message: "Failed to sync match results"}

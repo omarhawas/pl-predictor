@@ -15,6 +15,16 @@ class MatchesController < ApplicationController
         end
     end
 
+    def index
+        matches = Match.all
+
+        if matches.exists?
+            render status: 200, json: {matches: matches}
+        else
+            render status: 200, json: {message: "No matches exist"}
+        end
+    end
+
     def sync_matches
         league = League.find(params[:league_id])
         matches = FootballApi.get_matches_for_next_three_weeks()

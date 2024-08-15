@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_10_200902) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_13_203500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -115,6 +115,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_10_200902) do
     t.index ["league_id"], name: "index_mini_leagues_on_league_id"
   end
 
+  create_table "table_predictions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "league_team_id", null: false
+    t.bigint "league_id", null: false
+    t.integer "rank"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["league_id"], name: "index_table_predictions_on_league_id"
+    t.index ["league_team_id"], name: "index_table_predictions_on_league_team_id"
+    t.index ["user_id"], name: "index_table_predictions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "username"
@@ -134,4 +146,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_10_200902) do
   add_foreign_key "mini_league_user_invites", "users"
   add_foreign_key "mini_league_users", "users"
   add_foreign_key "mini_leagues", "leagues"
+  add_foreign_key "table_predictions", "league_teams"
+  add_foreign_key "table_predictions", "leagues"
+  add_foreign_key "table_predictions", "users"
 end

@@ -42,7 +42,6 @@ class LeaguePredictionsController < ApplicationController
         else 
             render json: {league_prediction: league_prediction}, status: 400
         end
-
     end
 
     def destroy

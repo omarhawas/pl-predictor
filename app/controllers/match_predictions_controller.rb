@@ -4,6 +4,13 @@ class MatchPredictionsController < ApplicationController
         match = Match.find(params[:match_id])
         league = match.league
 
+        prediction_already_created = MatchPrediction.find_by(match_id: match.id)
+
+        if prediction_already_created
+            render status: 200, json: {message: "You have already created a prediction for this match"}
+            return
+        end
+
         match_prediction = MatchPrediction.new(match_prediction_params)
 
         match_prediction.league_id = league.id
@@ -18,7 +25,7 @@ class MatchPredictionsController < ApplicationController
     end
 
     def index
-        match_predictions = MatchPrediction.where(match_id: params[:match_id])
+        match_predictions = MatchPrediction.where(match_id: params[:match_id], user_id: current_user.id)
 
         if match_predictions.exists?
             render json: {match_predictions: match_predictions}, status: 200

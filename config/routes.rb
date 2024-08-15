@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
     resources :leagues do
 
+      resources :table_predictions
       resources :league_predictions
   
       resources :mini_leagues do

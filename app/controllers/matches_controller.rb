@@ -16,13 +16,17 @@ class MatchesController < ApplicationController
     end
 
     def index
+        user = current_user
         matches = Match.all
 
-        if matches.exists?
-            render status: 200, json: {matches: matches}
-        else
-            render status: 200, json: {message: "No matches exist"}
+        matches_with_predictions = matches.map do |match|
+            {
+                match: match,
+                match_prediction: match.match_predictions_for_user(user)
+            }
         end
+        
+        render status: 200, json: {matches: matches_with_predictions}
     end
 
     def sync_matches

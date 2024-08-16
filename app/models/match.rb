@@ -19,4 +19,9 @@ class Match < ApplicationRecord
       match_prediction.save!
     end
   end
+
+  def match_predictions_for_user(user)
+    self.match_predictions.where(user_id: user.id)
+  end
+  
 end

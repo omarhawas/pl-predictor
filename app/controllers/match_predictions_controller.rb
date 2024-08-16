@@ -25,18 +25,20 @@ class MatchPredictionsController < ApplicationController
     end
 
     def index
-        match_predictions = MatchPrediction.where(match_id: params[:match_id], user_id: current_user.id)
+        match = Match.find(params[:match_id])
 
-        if match_predictions.exists?
+        match_predictions = MatchPrediction.where(user_id: current_user.id, match_id: match.id)
+        
+        if match_predictions.any?
             render json: {match_predictions: match_predictions}, status: 200
         else
-            render json: {message: 'no match predictions found'}, status: 404
+            render json: {message: 'No match predictions found'}, status: 404
         end
     end
 
     def show
         begin
-            match_prediction = MatchPrediction.find(params[:id])
+            match_prediction = MatchPrediction.where(match_id: params[:id], user_id: current_user.id)
             render json: {match_prediction: match_prediction}, status: 200
         rescue ActiveRecord::RecordNotFound
             render json: {message: "match prediction not found"}, status: 404

@@ -15,18 +15,33 @@ class TablePredictionsController < ApplicationController
     end
 
     def update
+        table_prediction = TablePrediction.find(params[:id])
 
+        if table_prediction.update(table_prediction_params)
+            render status: 200, json: {message: "Successfully updated table prediction", table_prediction: table_prediction}
+        else
+            render status: 400, json: {message: "Unable to update table prediction"}
+        end
     end
 
     def index
+        table_predictions = TablePrediction.where(user_id: current_user.id)
 
-    end
-
-    def show
-
+        if table_predictions.exists?
+            render status: 200, json: {table_prediction: table_predictions}
+        else
+            render status: 400, json: {message: "No table predictions found"}
+        end
     end
 
     def destroy
+        table_prediction = TablePrediction.find(params[:id])
+
+        if table_prediction.destroy
+            render status: 200, json: {message: "Successfully deleted table prediction"}
+        else
+            render status: 400, json: {message: "Unable to delete table prediction"}
+        end
 
     end
 

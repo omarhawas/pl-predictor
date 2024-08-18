@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "http://localhost:3001", "https://polar-reef-73313-c2c5d8b9a403.herokuapp.com"
+    origins "http://localhost:3001", "https://premier-league-predictor-ui.vercel.app/"
     resource "*",
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head]

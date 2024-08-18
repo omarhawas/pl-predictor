@@ -17,7 +17,6 @@ class LeaguesController < ApplicationController
         else 
             render status: 400
         end
-
     end
 
     def sync_leagues
@@ -54,7 +53,28 @@ class LeaguesController < ApplicationController
         else
             render status: 400, json: {message: "Unable to sync"}
         end
+    end
 
+    def get_current_season
+        season = League.last 
+
+        if season
+            render status: 200, json: {current_season: season}
+        else
+            render status: 400, json: {message: "Season not found"}
+        end
+    end
+
+    def get_current_season_teams
+        league = League.find(params[:league_id])
+
+        league_teams = league.league_teams
+
+        if league_teams
+            render status: 200, json: {league_teams: league_teams, message: "Successfully retrieved league teams"}
+        else
+            render status: 404, json: {message: "No league teams for this league"}
+        end
     end
 
 

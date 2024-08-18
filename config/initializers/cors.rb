@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins 'http://localhost:3001','http://localhost:3000','https://premier-league-predictor-ui.vercel.app/' # Replace with your actual frontend URLs
+      origins 'http://localhost:3001','http://localhost:3000','https://premier-league-predictor-ui.vercel.app' # Replace with your actual frontend URLs
   
       resource '*',
         headers: :any,

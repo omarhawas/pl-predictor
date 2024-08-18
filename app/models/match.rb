@@ -6,12 +6,12 @@ class Match < ApplicationRecord
 
   def calculate_points
     self.match_predictions.each do |match_prediction|
-      if match_prediction.home_team_goals == match.home_team_goals && match_prediction.away_team_goals == match.away_team_goals
+      if match_prediction.home_team_goals == self.home_team_goals && match_prediction.away_team_goals == self.away_team_goals
           match_prediction.update(points_earned: 3)
-      elsif match_prediction.home_team_goals - match_prediction.away_team_goals == match.home_team_goals - match.away_team_goals
+      elsif match_prediction.home_team_goals - match_prediction.away_team_goals == self.home_team_goals - self.away_team_goals
           match_prediction.update(points_earned: 2)
-      elsif (match_prediction.home_team_goals > match_prediction.away_team_goals && match.home_team_goals > match.away_team_goals) || 
-          (match_prediction.home_team_goals < match_prediction.away_team_goals && match.home_team_goals < match.away_team_goals)
+      elsif (match_prediction.home_team_goals > match_prediction.away_team_goals && self.home_team_goals > self.away_team_goals) || 
+          (match_prediction.home_team_goals < match_prediction.away_team_goals && self.home_team_goals < self.away_team_goals)
           match_prediction.update(points_earned: 1)
       else
           match_prediction.update(points_earned: 0)

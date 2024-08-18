@@ -21,11 +21,11 @@ class MatchesController < ApplicationController
 
         matches_with_predictions = matches.map do |match|
             {
-                match: match,
+                match: match.as_json(include: [:home_team, :away_team]),
                 match_prediction: match.match_predictions_for_user(user)
             }
         end
-        
+
         render status: 200, json: {matches: matches_with_predictions}
     end
 

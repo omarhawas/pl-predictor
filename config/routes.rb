@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     post '/sync_results', to: 'matches#sync_results'
 
     get '/get_current_season', to: 'leagues#get_current_season'
-    get '/leagues/:league_id/get_current_season_teams', to: 'leagues#get_current_season_teams'
+    get '/leagues/:league_id/current_season_teams', to: 'leagues#get_current_season_teams'
 
     resources :leagues do
 

@@ -81,6 +81,17 @@ class MatchesController < ApplicationController
         end
     end
 
+    def get_unplayed_matches
+
+        unplayed_matches = Match.where("end_time > ?", Time.current)
+
+        if unplayed_matches.exists?
+            render status: 200, json: {message: "Successfully loaded unplayed matches", unplayed_matches: unplayed_matches}
+        else
+            render status: 400, json: {message: "No unplayed matches in database"}
+        end
+    end
+
     private
 
     def match_params

@@ -67,6 +67,22 @@ class MatchPredictionsController < ApplicationController
         end
     end
 
+    def get_all_user_predictions
+        league = League.find(params[:league_id])
+        user_predictions = MatchPrediction.where(user_id: current_user.id)
+        sum = 0
+        user_predictions.each do |prediction|
+            sum = sum + (prediction.points_earned || 0)
+        end
+
+        if user_predictions.exists?
+            render status: 200, json: {user_predictions: user_predictions.as_json(include: {match: {include: [:home_team, :away_team]}}), total_points: sum}
+        else
+            render status: 404, json: {message: "User predictions not found"}
+        end
+
+    end
+
     private
 
     def match_prediction_params

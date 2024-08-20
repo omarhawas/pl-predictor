@@ -45,6 +45,17 @@ class TablePredictionsController < ApplicationController
 
     end
 
+    def get_user_table_predictions_for_league
+        league = League.find(params[:league_id])
+        user_table_predictions = TablePrediction.where(user_id: current_user.id, league_id: league.id)
+
+        if user_table_predictions.exists?
+            status: 200, json: {message: "Successfully retrieved user table predictions", user_table_predictions: user_table_predictions}
+        else
+            status: 404, json: {message: "No user table predictions found"}
+        end
+    end
+
     private
 
     def table_prediction_params

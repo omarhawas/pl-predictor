@@ -10,13 +10,6 @@ Rails.application.routes.draw do
 
     resources :users 
 
-    post '/sync_leagues', to: 'leagues#sync_leagues'
-    post '/leagues/:league_id/sync_matches', to: 'matches#sync_matches'
-    post '/sync_results', to: 'matches#sync_results'
-
-    get '/get_current_season', to: 'leagues#get_current_season'
-    get '/leagues/:league_id/current_season_teams', to: 'leagues#get_current_season_teams'
-
     resources :leagues do
 
       resources :table_predictions
@@ -32,6 +25,17 @@ Rails.application.routes.draw do
       end
   
     end
+
+    post '/sync_leagues', to: 'leagues#sync_leagues'
+    post '/leagues/:league_id/sync_matches', to: 'matches#sync_matches'
+    post '/sync_results', to: 'matches#sync_results'
+
+    get '/get_current_season', to: 'leagues#get_current_season'
+    get '/leagues/:league_id/current_season_teams', to: 'leagues#get_current_season_teams'
+
+    get 'leagues/:league_id/match_predictions', to: 'match_predictions#get_all_user_predictions'
+
+    get 'leagues/:league_id/user_league_table_predictions', to: 'table_predictions#get_user_table_predictions_for_league'
 
   end
 

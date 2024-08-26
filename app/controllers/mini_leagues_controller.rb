@@ -3,6 +3,8 @@ class MiniLeaguesController < ApplicationController
     def create
         mini_league = MiniLeague.new(mini_league_params)
         league = League.find(params[:league_id])
+
+        mini_league.league_code = generate_league_code()
         
         mini_league.league_id = league.id
         mini_league.admin_user_id = current_user.id
@@ -40,4 +42,9 @@ class MiniLeaguesController < ApplicationController
     def mini_league_params 
         params.require(:mini_league).permit(:name)
     end
+
+    def generate_league_code
+        rand(1000..9999).to_s
+    end
+
 end
